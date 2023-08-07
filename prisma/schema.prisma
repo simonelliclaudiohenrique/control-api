@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id    Int     @default(autoincrement()) @id
+  name  String?
+  email String
+  password String
+  created_by String?
+  created_at DateTime @default(now())
+  update_by String?
+  update_at DateTime @updatedAt
+  deleted_by String?
+  deleted_at DateTime?
+
+  @@map("user")
+}
+
+
+model Category {
+  id    Int     @default(autoincrement()) @id
+  descirption  String?
+  observation String?
+  created_by String?
+  created_at DateTime @default(now())
+  update_by String?
+  update_at DateTime @updatedAt
+  deleted_by String?
+  deleted_at DateTime?
+
+  @@map("category")
+}
+
+
+model Debit {
+  id    Int     @default(autoincrement()) @id
+  descirption  String?
+  category_id Int
+  value Decimal
+  created_by String?
+  created_at DateTime @default(now())
+  update_by String?
+  update_at DateTime @updatedAt
+  deleted_by String?
+  deleted_at DateTime?
+
+  @@map("debit")
+}
+
+
+model Prohibited {
+  id    Int     @default(autoincrement()) @id
+  descirption  String?
+  category_id Int
+  value Decimal
+  created_by String?
+  created_at DateTime @default(now())
+  update_by String?
+  update_at DateTime @updatedAt
+  deleted_by String?
+  deleted_at DateTime?
+
+  @@map("prohibited")
+}

@@ -1,0 +1,15 @@
+-- AlterTable
+ALTER TABLE `category` MODIFY `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
+
+-- AlterTable
+ALTER TABLE `debit` MODIFY `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
+
+-- AlterTable
+ALTER TABLE `prohibited` MODIFY `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    MODIFY `created_by` VARCHAR(191) NULL,
+    MODIFY `deleted_at` DATETIME(3) NULL,
+    MODIFY `deleted_by` VARCHAR(191) NULL,
+    MODIFY `update_by` VARCHAR(191) NULL;
+
+-- AlterTable
+ALTER TABLE `user` MODIFY `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
