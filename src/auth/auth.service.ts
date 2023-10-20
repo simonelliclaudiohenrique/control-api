@@ -3,6 +3,8 @@ import { UsersService } from "../users/users.service";
 import * as bcrypt from "bcrypt";
 import { PrismaService } from "src/config/prisma.service";
 import { JwtService } from "@nestjs/jwt";
+import * as jwt from "jsonwebtoken";
+import { jwtConstants } from "./constants";
 
 @Injectable()
 export class AuthService {
@@ -19,10 +21,21 @@ export class AuthService {
     if (!compare) {
       throw new UnauthorizedException();
     }
-    const payload = { sub: user.id, username: user.email };
+
+    const refreshToken = jwt.sign(
+      { sub: user.id, username: user.email },
+      jwtConstants.refreshSecret,
+      { expiresIn: "7d" },
+    );
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.generateAccessToken(user.id, user.email),
+      refresh_token: refreshToken,
     };
+  }
+
+  generateAccessToken(userId: number, username: string): Promise<string> {
+    const payload = { sub: userId, username: username };
+    return this.jwtService.signAsync(payload);
   }
 
   async validateUser(userId: number, pass: string): Promise<any> {
